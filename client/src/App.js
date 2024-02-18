@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect, useState} from 'react'
+import {BrowserRouter as Router, Route, Routes,} from "react-router-dom";
+import axios from "axios";
+import Lobby from './LobbyPage.js';
+import CodeBlock from './CodeBlock.js';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const baseURL = "http://localhost:3080";
+
+  const [blocks, setBlocks] = useState([]);
+
+  useEffect(() => {
+    getBlocks();
+  }, []);
+
+const getBlocks = () => {
+  axios.get(`${baseURL}/blocks`)
+      .then((response) => setBlocks(response.data.Blocks))
+      .catch((error) => console.error(error));
 }
 
-export default App;
+  return (
+    <div className="App">
+        <Router>
+            <Routes>
+                <Route
+                    path="/"
+                    element={
+                        <Lobby
+                          blocks = {blocks}
+                        />
+                    }
+                />
+                <Route
+                    path="/block/:blockId"
+                    element={
+                        <CodeBlock />
+                    }
+                />
+            </Routes>
+        </Router>
+        </div>
+  )
+}
+
+export default App
