@@ -5,7 +5,7 @@ import Lobby from './LobbyPage.js';
 import CodeBlock from './CodeBlock.js';
 
 function App() {
-  const baseURL = "http://localhost:3080";
+  const baseURL = "https://colabcodingapp-server.onrender.com";
 
   const [blocks, setBlocks] = useState([]);
 
