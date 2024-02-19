@@ -15,7 +15,7 @@ const port = 3080;
 app.use(express.json());
 
 const corsOptions = {
-    origin: '*',
+    origin: 'https://colabcodingapp-client.onrender.com',
     credentials: true
 };
 app.use(cors(corsOptions));
@@ -64,10 +64,6 @@ app.get('/blocks/:blockId', cors(corsOptions), (req, res) => {
     res.send({block});
 });
 
-server.listen(port, () =>
-    console.log(`Listening on port ${port}`)
-);
-
 const assignUserRole = (blockId) => {
     if (Blocks[blockId-1].mentorUserId === null){
         Blocks[blockId-1].mentorUserId = true;
@@ -81,3 +77,8 @@ const assignUserRole = (blockId) => {
     }
     return "other"
 }
+
+server.listen(port, () =>
+    console.log(`Listening on port ${port}`)
+);
+
