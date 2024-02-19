@@ -30,18 +30,18 @@ io.on('connection', (socket) => {
     console.log(`a user connected with socketId; ${socket.id}`);
 
     socket.on('user_joined', ({blockId}) => {
-        console.log("in user join");
+        console.log("user joined on block: ", blockId);
         socket.join(blockId);
+        console.log("server joined to room: ", blockId);
         role = assignUserRole(blockId);
         console.log("user role: ", role);
         socket.emit('user-role', {role});
     });
 
     // for sync
-    socket.on('code-change', ({blockId, code}) => {
-        console.log("code changed: ", code);
-        console.log("send code", code, "to blockId: ", blockId);
-        io.to(blockId).emit('code-change', {code});
+    socket.on('code-change', ({blockId, text}) => {
+        console.log("send code", text, "to blockId: ", blockId);
+        io.to(blockId).emit('code-change', {text});
     });
 
     socket.on('disconnect', () => {

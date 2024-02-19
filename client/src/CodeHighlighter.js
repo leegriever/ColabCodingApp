@@ -9,24 +9,25 @@ import { socket } from './socket';
 
 hljs.registerLanguage('javascript',  require('highlight.js/lib/languages/javascript'))
 
-const CodeHighlighter = (params) => {
-    const {code, blockId} = params;
-    const codeRef = useRef(null);
+const CodeHighlighter = ({blockId}) => {
+    // const [code, setCode] = useState('')
+    const code = useRef();
     const [isStudent, setIsStudent] = useState([false]);
 
-
-//    socket.on('connect', () => {
-//     console.log("test!")
-//    });
-
+// on connect
+useEffect(() => {
+  socket.connect();
+  socket.emit('user_joined', {blockId});
+}, [blockId]);
 
     // const [isStudent, setIsStudent] = useState([false]);
     useEffect(() => {
-        socket.connect();
-        console.log("socket id: ", socket.id);
-        console.log("in codehighloight useEffec with blockId: ", blockId);
-        socket.emit('user_joined', {blockId});
+        // socket.connect();
+        // console.log("socket id: ", socket.id);
+        // console.log("in codehighloight useEffec with blockId: ", blockId);
+        // socket.emit('user_joined', {blockId});
         socket.on('user-role', (role) => {setIsStudent(role.role === "student")});
+        console.log("is Student: ",isStudent)
         // if (isStudent){
         //     socket.emit('code-change', {
         //         blockId,
@@ -34,32 +35,51 @@ const CodeHighlighter = (params) => {
         //     });
         // }
         // else{
-        socket.on('code-change', (code) => {code = code.code});
+        if (!isStudent){
+           socket.on('code-change', (text) => {changes(text.text)});
+        }
+       
         // }
-    }, []);
-
+    });
+        
+    const changes = (text)=>{
+      // setCode(text)
+      code.current = text
+      const container = document.getElementById("textEditor") 
+      console.log("code:", code.current);   
+      container.value = code.current
+    }
+    
     const handleCodeChange = (event)=>{
-        console.log("in useEffect !!!!!!!")
-        const text = document.getElementById("code");
-        console.log( "text: ",text)
-        socket.emit('code-change', {
-            blockId,
-            code: "123",
-        });
-        // hljs.highlightBlock(codeRef.current);
+    // const container = document.getElementById("textEditor")
+      const text = event.target.value
+      // container.value = "text";
+      socket.emit('code-change', {
+          blockId,
+          text,
+      });
+      // hljs.highlightBlock(codeRef.current);
     }
         
-    
-
     return (
-        // <textarea id = "code" 
-        //         onInput = {handleCodeChange}>
-        //     </textarea>
-      <pre css="height:500px" suppressContentEditableWarning={true} contentEditable={isStudent}>
-        <code onInput={handleCodeChange}  suppressContentEditableWarning={true} contentEditable={isStudent} ref={codeRef} className="javascript">
-          {code}
-        </code>
-      </pre>
+  
+        <div>
+          <h1>
+            Code Block
+          </h1>
+          <textarea 
+          id = "textEditor"
+          rows = "20"
+          cols="70" 
+          onChange={handleCodeChange}
+          // value={code}
+          readOnly = {!isStudent}/>
+        </div>
+      // <pre css="height:500px" suppressContentEditableWarning={true} contentEditable={isStudent}>
+      //   <code onInput={handleCodeChange}  suppressContentEditableWarning={true} contentEditable={isStudent} ref={codeRef} className="javascript">
+      //     {code}
+      //   </code>
+      // </pre>
     );
   };
   
