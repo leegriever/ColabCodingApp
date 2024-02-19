@@ -14,7 +14,11 @@ const port = 3080;
 
 app.use(express.json());
 
-app.use(cors())
+const corsOptions = {
+    origin: '*',
+    credentials: true
+};
+app.use(cors(corsOptions));
 
 
 io.on('connection', (socket) => {
@@ -40,17 +44,17 @@ io.on('connection', (socket) => {
 });
 
 
-app.get("/", cors(), (req, res) => {
+app.get("/", cors(corsOptions), (req, res) => {
     res.send("Welcome to the server port!");
 });
 
-app.get('/blocks', cors(), (req, res) => {
+app.get('/blocks', cors(corsOptions), (req, res) => {
     let blocksToReturn = Blocks;
     res.send({Blocks: blocksToReturn});
 });
 
 
-app.get('/blocks/:blockId', cors(), (req, res) => {
+app.get('/blocks/:blockId', cors(corsOptions), (req, res) => {
     const {blockId} = req.params
     const block = Blocks[blockId-1]
     if (!block) {
