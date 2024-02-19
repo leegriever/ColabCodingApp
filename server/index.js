@@ -10,17 +10,12 @@ const {Server} = require('socket.io');
 const server = http.createServer(app);
 const io = new Server(server);
 
-
-const baseUrl = {
-    client: "http://localhost:3000",
-    server: "http://localhost:3080"
-};
 const port = 3080;
 
 app.use(express.json());
 
 const corsOptions = {
-    origin: `${baseUrl.client}`,
+    origin: `https://colabcodingapp-client.onrender.com/`,
     credentials: true
 }
 app.use(cors(corsOptions));
