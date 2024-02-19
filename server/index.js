@@ -38,7 +38,6 @@ io.on('connection', (socket) => {
         socket.emit('user-role', {role});
     });
 
-    // for sync
     socket.on('code-change', ({blockId, text}) => {
         console.log("send code", text, "to blockId: ", blockId);
         io.to(blockId).emit('code-change', {text});
