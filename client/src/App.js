@@ -10,6 +10,7 @@ function App() {
   const [blocks, setBlocks] = useState([]);
 
   useEffect(() => {
+    console.log("in useEffect app.js")
     getBlocks();
   }, []);
 
