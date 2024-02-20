@@ -33,6 +33,9 @@ io.on('connection', (socket) => {
         io.to(blockId).emit('code-change', {text});
     });
 
+    socket.on('disconnect', () => {
+        console.log('user disconnected with socketId: ', socket.id);
+    });
 });
 
 
