@@ -9,7 +9,7 @@ COPY src/ /app/src
 COPY package.json /app/
 
 # Install dependencies
-RUN npm install
+RUN npm install 
 
 # Build the React app
 # RUN npm run build
