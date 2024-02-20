@@ -1,14 +1,12 @@
 import React from 'react'
 import {useNavigate} from "react-router-dom";
 import {Box, List, ListItem, ListItemText, ListItemButton, ListItemIcon} from '@mui/material';
-import { socket } from './socket';
 
 
 function Lobby({blocks}) {
 
   const navigate = useNavigate();
   const onBlockClicked = (blockId) => {
-    console.log('btn click with blockId: ', blockId)
     navigate(`/block/${blockId}`);
     
   }

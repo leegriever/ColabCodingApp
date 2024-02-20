@@ -9,7 +9,6 @@ function CodeBlock() {
     const navigate = useNavigate();
     const [block, setBlock] = useState([]);
     const baseURL = "https://colabcodingapp-server.onrender.com";
-    console.log("in CodeBlock, blockId: ", blockId)
 
     useEffect(() => {
       getBlock();

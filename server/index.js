@@ -23,24 +23,16 @@ app.use(cors(corsOptions));
 
 io.on('connection', (socket) => {
     console.log(`a user connected with socketId; ${socket.id}`);
-
     socket.on('user_joined', ({blockId}) => {
-        console.log("user joined on block: ", blockId);
         socket.join(blockId);
-        console.log("server joined to room: ", blockId);
         role = assignUserRole(blockId);
-        console.log("user role: ", role);
         socket.emit('user-role', {role});
     });
 
     socket.on('code-change', ({blockId, text}) => {
-        console.log("send code", text, "to blockId: ", blockId);
         io.to(blockId).emit('code-change', {text});
     });
 
-    socket.on('disconnect', () => {
-        console.log('user disconnected with socketId: ', socket.id);
-    });
 });
 
 
