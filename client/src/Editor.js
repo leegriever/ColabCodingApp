@@ -46,7 +46,7 @@ const Editor = ({blockId}) => {
           rows = "20"
           cols="70" 
           onChange={handleCodeChange}
-          readOnly = {!isStudent}/>
+          disabled = {!isStudent}/>
         </div>
         
     );
