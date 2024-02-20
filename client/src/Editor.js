@@ -15,6 +15,7 @@ const Editor = ({blockId}) => {
 
     // initiate socket connect upon block entrance 
     useEffect(() => {
+      console.log("is student: ", isStudent);
       console.log("before socket connect");
       socket.connect();
       console.log("after socket connect");
