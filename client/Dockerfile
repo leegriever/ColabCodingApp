@@ -2,11 +2,11 @@ FROM node:13.12.0-alpine
 
 
 
-WORKDIR /app
+# WORKDIR /app
 
-COPY public/ /app/public
-COPY src/ /app/src
-COPY package.json /app/
+COPY public/ /public
+COPY src/ /src
+COPY package.json /
 
 # Install dependencies
 RUN npm install 
