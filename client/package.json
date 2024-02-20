@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://colabcodingapp-server.onrender.com",
+  "proxy": "http://localhost:3080",
   "dependencies": {
     "webpack": "^5.0.2",
     "webpack-dev-server": "^5.0.2",
