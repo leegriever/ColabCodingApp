@@ -10,19 +10,14 @@ const {Server} = require('socket.io');
 const server = http.createServer(app);
 const io = new Server(server);
 
-
-const baseUrl = {
-    client: "http://localhost:3000",
-    server: "http://localhost:3080"
-};
 const port = 3080;
 
 app.use(express.json());
 
 const corsOptions = {
-    origin: `${baseUrl.client}`,
+    origin: 'colabcodingapp-production-9438.up.railway.app',
     credentials: true
-}
+};
 app.use(cors(corsOptions));
 
 
@@ -69,10 +64,6 @@ app.get('/blocks/:blockId', cors(corsOptions), (req, res) => {
     res.send({block});
 });
 
-server.listen(port, () =>
-    console.log(`Listening on port ${port}`)
-);
-
 const assignUserRole = (blockId) => {
     if (Blocks[blockId-1].mentorUserId === null){
         Blocks[blockId-1].mentorUserId = true;
@@ -86,3 +77,8 @@ const assignUserRole = (blockId) => {
     }
     return "other"
 }
+
+server.listen(port, () =>
+    console.log(`Listening on port ${port}`)
+);
+
