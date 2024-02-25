@@ -3,12 +3,14 @@ import {useNavigate, useParams} from "react-router-dom";
 import {Button} from '@mui/material';
 import axios from 'axios';
 import CodeEditor from './CodeEditor.js'
+import { baseUrl } from './constants.js';
 
 function CodeBlock() {
     const {blockId} = useParams();
     const navigate = useNavigate();
     const [block, setBlock] = useState([]);
-    const baseURL = "http://localhost:3080";
+
+    // const baseURL = "http://localhost:3080";
 
     useEffect(() => {
       getBlock();
@@ -19,7 +21,7 @@ function CodeBlock() {
     }
 
     const getBlock = () => {
-        axios.get(`${baseURL}/blocks/${blockId}`)
+        axios.get(`${baseUrl.server}/blocks/${blockId}`)
             .then((response) => setBlock(response.data.block))
             .catch((error) => console.error(error));
     }

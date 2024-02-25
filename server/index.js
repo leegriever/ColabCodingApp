@@ -14,8 +14,9 @@ const port = 3080;
 
 app.use(express.json());
 
+const {baseUrl} = require('../constants');
 const corsOptions = {
-    origin: "http://localhost:3000",
+    origin: `${baseUrl.client}`,
     credentials: true
 };
 app.use(cors(corsOptions));

@@ -3,9 +3,10 @@ import {BrowserRouter as Router, Route, Routes,} from "react-router-dom";
 import axios from "axios";
 import Lobby from './LobbyPage.js';
 import CodeBlock from './CodeBlock.js';
+import { baseUrl } from './constants.js';
 
 function App() {
-  const baseURL = "http://localhost:3080";
+  // const baseURL = "http://localhost:3080";
 
   const [blocks, setBlocks] = useState([]);
 
@@ -14,7 +15,7 @@ function App() {
   }, []);
 
 const getBlocks = () => {
-  axios.get(`${baseURL}/blocks`)
+  axios.get(`${baseUrl.server}/blocks`)
       .then((response) => setBlocks(response.data.Blocks))
       .catch((error) => console.error(error));
 }
