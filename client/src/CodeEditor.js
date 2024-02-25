@@ -14,7 +14,6 @@ const CodeEditor = ({blockId, codeSolution}) => {
     }, [blockId]);
 
     useEffect(() => {
-      console.log("is student: ", isStudent);
         socket.on('user-role', (role) => {setIsStudent(role.role === "student")});
         if (!isStudent){
            socket.on('code-change', (text) => {applyChanges(text.text)});
@@ -33,10 +32,8 @@ const CodeEditor = ({blockId, codeSolution}) => {
           text,
       });
       if (text === codeSolution){
-        console.log("well done!")
         setIsCorrect(true);
       }
-
     }
 
     return (
@@ -52,7 +49,6 @@ const CodeEditor = ({blockId, codeSolution}) => {
         onChange={handleCodeChange}
         options={{readOnly: !isStudent}}
         value={code}
-        
       />
       </div>
       

@@ -32,10 +32,6 @@ io.on('connection', (socket) => {
     socket.on('code-change', ({blockId, text}) => {
         io.to(blockId).emit('code-change', {text});
     });
-
-    socket.on('disconnect', () => {
-        console.log('user disconnected with socketId: ', socket.id);
-    });
 });
 
 
@@ -64,13 +60,7 @@ const assignUserRole = (blockId) => {
         Blocks[blockId-1].mentorUserId = true;
         return "mentor"
     }
-    else {
-        if (Blocks[blockId-1].studentUserId === null){
-            Blocks[blockId-1].studentUserId = true;
-            return "student" 
-        }
-    }
-    return "other"
+    return "student"
 }
 
 server.listen(port, () =>
