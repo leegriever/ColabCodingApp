@@ -1,16 +1,12 @@
 import React, {useEffect, useRef, useState} from "react";
-import hljs from 'highlight.js';
+import Editor from "@monaco-editor/react"
 
-import 'highlight.js/styles/default.css';
-import 'highlight.js/styles/atom-one-dark.css';
 import { socket } from './socket';
 
-hljs.registerLanguage('javascript',  require('highlight.js/lib/languages/javascript'))
-
-const Editor = ({blockId}) => {
-    const code = useRef();
+const CodeEditor = ({blockId}) => {
+    const [code, setCode] = useState("// write your code here ");
     const [isStudent, setIsStudent] = useState([false]);
-    
+
     // initiate socket connect upon block entrance 
     useEffect(() => {
       socket.connect();
@@ -18,6 +14,7 @@ const Editor = ({blockId}) => {
     }, [blockId]);
 
     useEffect(() => {
+      console.log("is student: ", isStudent);
         socket.on('user-role', (role) => {setIsStudent(role.role === "student")});
         if (!isStudent){
            socket.on('code-change', (text) => {applyChanges(text.text)});
@@ -26,30 +23,30 @@ const Editor = ({blockId}) => {
 
     // apply changes performed by another user
     const applyChanges = (text)=>{
-      code.current = text
-      const container = document.getElementById("textEditor") 
-      container.value = code.current;
+      setCode(text);
     }
     
-    const handleCodeChange = (event)=>{
-      const text = event.target.value;
+    const handleCodeChange = (value, event)=>{
+      const text = value;
       socket.emit('code-change', {
           blockId,
           text,
       });
+
     }
-    
+
+
     return (
-        <div>
-          <textarea
-          id = "textEditor"
-          rows = "20"
-          cols="70" 
-          onChange={handleCodeChange}
-          disabled = {!isStudent}/>
-        </div>
-        
+      <Editor
+        height = "80vh"
+        width = "60%"
+        theme = "vs-dark"
+        defaultLanguage ="javascript"
+        onChange={handleCodeChange}
+        options={{readOnly: !isStudent}}
+        value={code}
+      />
     );
   };
   
-  export default Editor;
+  export default CodeEditor;

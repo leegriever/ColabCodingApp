@@ -2,13 +2,11 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://colabcodingapp-server.onrender.com",
+  "proxy": "http://localhost:3080",
   "dependencies": {
-    "webpack": "^5.0.2",
-    "webpack-dev-server": "^5.0.2",
-    "webpack-cli":"^5.1.4",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
+    "@monaco-editor/react": "^4.6.0",
     "@mui/material": "^5.15.10",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -18,10 +16,14 @@
     "prismjs": "^1.29.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-highlight": "^0.15.0",
     "react-router-dom": "^6.22.1",
     "react-scripts": "5.0.1",
     "socket.io-client": "^4.7.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "webpack": "^5.0.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.2"
   },
   "scripts": {
     "serve_client": "NODE_ENV=production webpack-dev-server -d --watch --history-api-fallback --host localhost --port 3000 --allowed-hosts all --no-devtool",

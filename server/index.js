@@ -15,7 +15,7 @@ const port = 3080;
 app.use(express.json());
 
 const corsOptions = {
-    origin: "https://colabcodingapp-production-9438.up.railway.app",
+    origin: "http://localhost:3000",
     credentials: true
 };
 app.use(cors(corsOptions));
@@ -30,6 +30,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('code-change', ({blockId, text}) => {
+        console.log("code is: ", text);
         io.to(blockId).emit('code-change', {text});
     });
 

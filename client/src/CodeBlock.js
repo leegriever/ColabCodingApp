@@ -2,13 +2,13 @@ import React, {useEffect, useRef, useState} from 'react'
 import {useNavigate, useParams} from "react-router-dom";
 import {Button} from '@mui/material';
 import axios from 'axios';
-import Editor from './Editor.js'
+import CodeEditor from './CodeEditor.js'
 
 function CodeBlock() {
     const {blockId} = useParams();
     const navigate = useNavigate();
     const [block, setBlock] = useState([]);
-    const baseURL = "https://colabcodingapp-server.onrender.com";
+    const baseURL = "http://localhost:3080";
 
     useEffect(() => {
       getBlock();
@@ -27,7 +27,7 @@ function CodeBlock() {
     return (
       <div>
         <h1>{block.title}</h1>
-        <Editor 
+        <CodeEditor 
         blockId={blockId}
         />
         <Button variant="contained" disableElevation
