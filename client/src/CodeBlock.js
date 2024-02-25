@@ -8,7 +8,7 @@ function CodeBlock() {
     const {blockId} = useParams();
     const navigate = useNavigate();
     const [block, setBlock] = useState([]);
-    const baseURL = "https://colabcodingapp-server.onrender.com";
+    const baseURL = "http://localhost:3080";
 
     useEffect(() => {
       getBlock();
@@ -29,6 +29,7 @@ function CodeBlock() {
         <h1>{block.title}</h1>
         <CodeEditor 
         blockId={blockId}
+        codeSolution={block.codeSolution}
         />
         <Button variant="contained" disableElevation
         onClick={() => onLobbyBtn()}

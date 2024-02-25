@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import Editor from "@monaco-editor/react"
-
 import { socket } from './socket';
 
-const CodeEditor = ({blockId}) => {
+const CodeEditor = ({blockId, codeSolution}) => {
     const [code, setCode] = useState("// write your code here ");
-    const [isStudent, setIsStudent] = useState([false]);
+    const [isStudent, setIsStudent] = useState(false);
+    const [isCorrect, setIsCorrect] = useState(false);
 
     // initiate socket connect upon block entrance 
     useEffect(() => {
@@ -32,11 +32,19 @@ const CodeEditor = ({blockId}) => {
           blockId,
           text,
       });
+      if (text === codeSolution){
+        console.log("well done!")
+        setIsCorrect(true);
+      }
 
     }
 
     return (
-      <Editor
+      <div>
+        {isCorrect && ( // Render the smiley face if isCorrect is true
+        <div style={{ fontSize: "4rem", textAlign: "center" }}>😊</div>
+        )}
+        <Editor
         height = "80vh"
         width = "60%"
         theme = "vs-dark"
@@ -46,6 +54,8 @@ const CodeEditor = ({blockId}) => {
         value={code}
         
       />
+      </div>
+      
     );
   };
   
