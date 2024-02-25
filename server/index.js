@@ -15,7 +15,7 @@ const port = 3080;
 app.use(express.json());
 
 const corsOptions = {
-    origin: "colabcodingapp-production-d42f.up.railway.app",
+    origin: "https://colabcodingapp-production-9438.up.railway.app",
     credentials: true
 };
 app.use(cors(corsOptions));
