@@ -8,7 +8,7 @@ function CodeBlock() {
     const {blockId} = useParams();
     const navigate = useNavigate();
     const [block, setBlock] = useState([]);
-    const baseURL = "http://localhost:3080";
+    const baseURL = "https://colabcodingapp-server.onrender.com";
 
     useEffect(() => {
       getBlock();

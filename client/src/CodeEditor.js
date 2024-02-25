@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Editor from "@monaco-editor/react"
 
 import { socket } from './socket';
@@ -35,7 +35,6 @@ const CodeEditor = ({blockId}) => {
 
     }
 
-
     return (
       <Editor
         height = "80vh"
@@ -45,6 +44,7 @@ const CodeEditor = ({blockId}) => {
         onChange={handleCodeChange}
         options={{readOnly: !isStudent}}
         value={code}
+        
       />
     );
   };
